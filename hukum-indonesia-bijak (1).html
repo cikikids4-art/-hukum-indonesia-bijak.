@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Hukum Indonesia Bijak - informasi dan edukasi hukum Indonesia.">
+<title>HUKUM INDONESIA BIJAK</title>
+<style>
+:root{--navy:#102e4a;--blue:#174d78;--gold:#c59b42;--bg:#f1f4f8}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#263238}
+button,input{font:inherit}button{border:0;border-radius:7px;padding:11px 16px;background:var(--blue);color:white;cursor:pointer;font-weight:bold}
+button:hover{filter:brightness(.9)}a{color:var(--blue);font-weight:bold;text-decoration:none}a:hover{text-decoration:underline}
+#loginPage{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#071d36,#286c99)}
+.login-box{background:white;padding:32px;border-radius:14px;width:min(390px,100%);box-shadow:0 12px 35px #0003;text-align:center}
+.login-box h1{font-size:23px;color:var(--navy)}.login-box p{color:#687782;line-height:1.5}
+input{width:100%;padding:12px;border:1px solid #cbd5df;border-radius:7px;margin:9px 0}
+.login-box button{width:100%;margin-top:8px}.muted{color:#687782;font-size:13px}
+#loginError{color:#b42318}
+#app{display:none}header{background:var(--navy);color:white;padding:18px max(5%,calc((100% - 1150px)/2));display:flex;align-items:center;justify-content:space-between;gap:15px}
+header h1{font-size:20px;margin:0}header button{background:var(--gold);color:#182d3e}
+nav{background:var(--blue);padding:13px max(5%,calc((100% - 1150px)/2));display:flex;flex-wrap:wrap;gap:10px 22px}
+nav button{background:transparent;padding:5px 0;color:white}nav button:hover{color:#ffe2a0}
+main{max-width:1150px;margin:auto;padding:28px 20px;min-height:65vh}.page{display:none}.page.active{display:block}
+.hero{background:linear-gradient(120deg,#123b60,#286c99);color:white;padding:35px;border-radius:12px;margin-bottom:25px}
+.hero h2{font-size:29px;margin:0 0 12px}.hero p{line-height:1.7;max-width:800px}
+h2.section{color:var(--navy);margin:20px 0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card,.result{background:white;border-radius:10px;padding:20px;box-shadow:0 3px 12px #0000000d;margin-bottom:16px}
+.card h3,.result h3{color:var(--blue);margin:0 0 12px}.card p,.result p{line-height:1.65;color:#4d5963}
+.photo{width:100%;height:190px;object-fit:cover;border-radius:8px;margin-bottom:12px;background:#e4eaf0}
+.tag{display:inline-block;background:#fff0cc;color:#805900;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:bold;margin:6px 0 10px}
+.timeline{border-left:3px solid var(--blue);padding-left:18px;margin:18px 0}.event{background:#f2f6fa;padding:13px;border-radius:7px;margin:0 0 14px;position:relative}.event:before{content:"";position:absolute;left:-25px;top:17px;width:11px;height:11px;border-radius:50%;background:var(--gold)}.event b{color:var(--blue)}
+.notice{background:#fff3cd;padding:15px;border-radius:8px;line-height:1.6;margin:18px 0}
+.searchrow{display:flex;gap:10px;margin:15px 0}.searchrow input{margin:0}.small{font-size:13px;color:#667}
+footer{background:var(--navy);color:white;text-align:center;padding:25px;line-height:1.6}
+@media(max-width:600px){header{padding:15px;align-items:flex-start}header h1{font-size:16px}.hero{padding:24px}.hero h2{font-size:23px}.searchrow{flex-direction:column}}
+</style>
+</head>
+<body>
+<div id="loginPage">
+ <div class="login-box">
+  <h1>⚖ HUKUM INDONESIA BIJAK</h1>
+  <p>Pusat informasi dan edukasi hukum Indonesia</p>
+  <input id="username" autocomplete="username" placeholder="Username">
+  <input id="password" type="password" autocomplete="current-password" placeholder="Password">
+  <button onclick="login()">MASUK</button>
+  <p id="loginError"></p>
+  <p class="muted">Akun demo: <b>admin</b> / <b>admin123</b></p>
+ </div>
+</div>
+<div id="app">
+<header><h1>⚖ HUKUM INDONESIA BIJAK</h1><button onclick="logout()">Keluar</button></header>
+<nav>
+ <button onclick="showPage('home')">Beranda</button>
+ <button onclick="showPage('kasus')">Informasi Kasus</button>
+ <button onclick="showPage('kronologi')">Kronologi</button>
+ <button onclick="showPage('pasal')">Pencarian KUHP</button>
+ <button onclick="showPage('tentang')">Tentang</button>
+</nav>
+<main>
+<section id="home" class="page active">
+ <div class="hero"><h2>HUKUM INDONESIA BIJAK</h2><p>Media edukasi untuk mengenal hukum, membaca informasi perkara, memahami kronologi pemberitaan, dan mencari ringkasan pasal KUHP. Gunakan sumber resmi untuk memeriksa informasi lebih lanjut.</p></div>
+ <h2 class="section">Layanan Website</h2>
+ <div class="cards">
+  <div class="card"><h3>Informasi Kasus</h3><p>Ringkasan perkara berdasarkan tautan sumber yang dicantumkan.</p><button onclick="showPage('kasus')">Buka informasi kasus</button></div>
+  <div class="card"><h3>Kronologi Perkara</h3><p>Ringkasan urutan peristiwa berdasarkan pemberitaan yang tersedia.</p><button onclick="showPage('kronologi')">Buka kronologi</button></div>
+  <div class="card"><h3>Pencarian KUHP</h3><p>Cari materi pasal berdasarkan nomor atau kata kunci.</p><button onclick="showPage('pasal')">Cari pasal</button></div>
+ </div>
+ <div class="notice"><b>Catatan:</b> Website ini untuk edukasi, bukan nasihat hukum. Status tersangka tidak berarti seseorang telah terbukti bersalah.</div>
+</section>
+
+<section id="kasus" class="page">
+ <h2 class="section">Informasi Perkara Hukum</h2>
+ <div class="cards">
+  <article class="card">
+   <img class="photo" src="https://cms-apistory.kejaksaan.go.id/api/v1/media/mav-prod-resized/480x/ori/newsCover/2026/11/10/1794292965.webp" alt="Ilustrasi dokumentasi berita Kejaksaan" onerror="this.style.display='none'">
+   <h3>Dugaan Korupsi Tata Kelola Tambang Nikel</h3><span class="tag">Perkembangan penyidikan menurut sumber</span>
+   <p>Ringkasan pemberitaan Kejaksaan Agung mengenai penetapan PT BSJ sebagai tersangka korporasi dalam perkara tata kelola pertambangan nikel di Sulawesi Tenggara.</p>
+   <p><b>Tanggal publikasi:</b> 10 November 2026</p>
+   <a target="_blank" rel="noopener" href="https://story.kejaksaan.go.id/hot-issue/geledah-6-kantor-kejagung-tetapkan-pt-bsj-sebagai-tersangka-korporasi-perkara-tambang-nikel-di-sultra-mvk.html">Baca sumber Kejaksaan →</a>
+  </article>
+  <article class="card">
+   <img class="photo" src="https://cms-apistory.kejaksaan.go.id/api/v1/media/mav-prod-resized/480x/ori/newsCover/2026/11/14/1794596207.webp" alt="Ilustrasi dokumentasi berita Kejaksaan" onerror="this.style.display='none'">
+   <h3>Dugaan Korupsi Kredit Bank BUMN di Kediri</h3><span class="tag">Perkembangan penyidikan menurut sumber</span>
+   <p>Ringkasan pemberitaan Kejaksaan mengenai penahanan tiga tersangka dalam perkara dugaan penyimpangan penyaluran kredit.</p>
+   <p><b>Tanggal publikasi:</b> 14 November 2026</p>
+   <a target="_blank" rel="noopener" href="https://story.kejaksaan.go.id/berita-daerah/jaksa-penyidik-2-kejari-di-wilayah-kejati-jatim-bongkar-perkara-dugaan-korupsi-di-perusahaan-bumn-mvk.html">Baca sumber Kejaksaan →</a>
+  </article>
+  <article class="card">
+   <h3>Penanganan Perkara Korupsi di Jember</h3><span class="tag">Laporan penanganan perkara</span>
+   <p>RRI memberitakan pemeriksaan saksi dalam sejumlah perkara dugaan korupsi oleh Kejaksaan Negeri Jember.</p>
+   <p><b>Tanggal publikasi:</b> 13 November 2026</p>
+   <a target="_blank" rel="noopener" href="https://rri.co.id/jember/hukum/anti-korupsi/2890859/tancap-gas-kejari-jember-periksa-113-saksi-untuk-10-kasus-korupsi">Baca berita RRI →</a>
+  </article>
+ </div>
+ <div class="notice">Periksa tanggal, isi, dan perkembangan terbaru melalui sumber asli. Ringkasan di halaman ini tidak menggantikan dokumen penyidikan atau putusan pengadilan.</div>
+</section>
+
+<section id="kronologi" class="page">
+ <h2 class="section">Kronologi Berdasarkan Pemberitaan</h2>
+ <div class="card">
+  <h3>1. Dugaan Korupsi Tata Kelola Tambang Nikel</h3>
+  <p><b>Lokasi:</b> Sulawesi Tenggara · <b>Publikasi:</b> 10 November 2026</p>
+  <div class="timeline">
+   <div class="event"><b>29 September 2025</b><p>Menurut pemberitaan Kejaksaan, penyidikan perkara tata kelola pertambangan nikel telah dimulai.</p></div>
+   <div class="event"><b>5 November 2026</b><p>Sumber Kejaksaan menyebut adanya penggeledahan di sejumlah lokasi.</p></div>
+   <div class="event"><b>6 November 2026</b><p>PT BSJ ditetapkan sebagai tersangka korporasi menurut keterangan Kejaksaan.</p></div>
+   <div class="event"><b>November 2026</b><p>Penyidik melanjutkan pemeriksaan dan pendalaman barang bukti sebagaimana diberitakan.</p></div>
+  </div>
+  <a target="_blank" rel="noopener" href="https://story.kejaksaan.go.id/hot-issue/geledah-6-kantor-kejagung-tetapkan-pt-bsj-sebagai-tersangka-korporasi-perkara-tambang-nikel-di-sultra-mvk.html">Periksa kronologi pada sumber Kejaksaan →</a>
+ </div>
+ <div class="card">
+  <h3>2. Dugaan Korupsi Kredit Bank BUMN di Kediri</h3>
+  <p><b>Lokasi:</b> Kediri, Jawa Timur · <b>Publikasi:</b> 14 November 2026</p>
+  <div class="timeline">
+   <div class="event"><b>2020–2024</b><p>Periode penyaluran kredit yang menjadi objek pendalaman penyidik, menurut pemberitaan Kejaksaan.</p></div>
+   <div class="event"><b>November 2026</b><p>Kejaksaan mengumumkan penanganan perkara dan penahanan tiga tersangka.</p></div>
+   <div class="event"><b>14 November 2026</b><p>Perkembangan perkara dipublikasikan melalui kanal berita Kejaksaan.</p></div>
+  </div>
+  <a target="_blank" rel="noopener" href="https://story.kejaksaan.go.id/berita-daerah/jaksa-penyidik-2-kejari-di-wilayah-kejati-jatim-bongkar-perkara-dugaan-korupsi-di-perusahaan-bumn-mvk.html">Periksa berita Kejaksaan →</a>
+ </div>
+ <div class="notice">Kronologi ini merupakan ringkasan terbatas dari pemberitaan, bukan rekonstruksi lengkap kejadian. Jangan menyimpulkan kesalahan seseorang sebelum ada putusan pengadilan berkekuatan hukum tetap.</div>
+</section>
+
+<section id="pasal" class="page">
+ <h2 class="section">Pencarian Pasal KUHP</h2>
+ <p>Masukkan nomor pasal atau kata kunci tindak pidana.</p>
+ <div class="searchrow"><input id="query" placeholder="Contoh: 476, pencurian, penipuan"><button onclick="searchArticle()">Cari</button></div>
+ <div id="results"></div>
+ <div class="notice">Daftar ini hanya ringkasan materi pasal pilihan dalam UU Nomor 1 Tahun 2023. Periksa naskah resmi dan perubahan peraturan sebelum menggunakannya untuk keperluan hukum.</div>
+ <a target="_blank" rel="noopener" href="https://peraturan.bpk.go.id/Details/234935/uu-no-1-tahun-2023">Buka UU Nomor 1 Tahun 2023 di JDIH BPK RI →</a>
+</section>
+
+<section id="tentang" class="page">
+ <h2 class="section">Tentang HUKUM INDONESIA BIJAK</h2>
+ <div class="card"><h3>Tujuan Website</h3><p>HUKUM INDONESIA BIJAK adalah media edukasi untuk membantu pembaca mengenal informasi hukum, mengikuti pemberitaan perkara, dan mencari ringkasan materi KUHP.</p><p>Informasi perkara harus dibaca bersama sumber aslinya. Website ini bukan layanan konsultasi hukum dan tidak menggantikan pendampingan advokat.</p><h3 style="margin-top:20px">Referensi</h3><p>Undang-Undang Nomor 1 Tahun 2023 tentang Kitab Undang-Undang Hukum Pidana.</p><a target="_blank" rel="noopener" href="https://peraturan.bpk.go.id/Details/234935/uu-no-1-tahun-2023">JDIH BPK RI →</a></div>
+</section>
+</main>
+<footer><b>⚖ HUKUM INDONESIA BIJAK</b><br>Media Informasi dan Edukasi Hukum Indonesia<br><span class="muted">© 2026 · Periksa selalu sumber resmi dan pembaruan peraturan.</span></footer>
+</div>
+<script>
+function login(){
+ const u=document.getElementById('username').value.trim();
+ const p=document.getElementById('password').value;
+ if(u==='admin'&&p==='admin123'){
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('app').style.display='block';
+  showPage('home');
+ }else{document.getElementById('loginError').textContent='Username atau password salah.';}
+}
+function logout(){
+ document.getElementById('app').style.display='none';
+ document.getElementById('loginPage').style.display='grid';
+ document.getElementById('username').value='';
+ document.getElementById('password').value='';
+}
+function showPage(id){
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0,0);
+}
+const pasal=[
+['391','Pemalsuan Surat','Mengatur pemalsuan surat yang dapat menimbulkan hak, perikatan, pembebasan utang, atau digunakan sebagai bukti.'],
+['458','Pembunuhan','Mengatur tindak pidana merampas nyawa orang lain.'],
+['459','Pembunuhan Berencana','Mengatur perampasan nyawa orang lain dengan rencana terlebih dahulu.'],
+['466','Penganiayaan','Mengatur tindak pidana penganiayaan terhadap orang lain.'],
+['467','Penganiayaan Berencana','Mengatur penganiayaan yang dilakukan dengan rencana terlebih dahulu.'],
+['468','Penganiayaan Berat','Mengatur penganiayaan yang mengakibatkan luka berat.'],
+['471','Penganiayaan Ringan','Mengatur tindak pidana penganiayaan ringan sesuai ketentuan pasal.'],
+['474','Kealpaan','Mengatur kealpaan yang mengakibatkan luka atau kematian sesuai rumusan pasal.'],
+['476','Pencurian','Mengatur pengambilan barang milik orang lain dengan maksud dimiliki secara melawan hukum.'],
+['477','Pencurian dengan Keadaan Pemberat','Mengatur pencurian dengan keadaan tertentu yang memberatkan.'],
+['479','Pencurian dengan Kekerasan','Mengatur pencurian yang didahului, disertai, atau diikuti kekerasan atau ancaman kekerasan.'],
+['482','Pemerasan','Mengatur pemaksaan untuk memperoleh barang atau keuntungan dengan kekerasan atau ancaman kekerasan.'],
+['483','Pengancaman','Mengatur pemaksaan melalui ancaman tertentu sebagaimana dirumuskan dalam pasal.'],
+['486','Penggelapan','Mengatur tindakan memiliki secara melawan hukum barang milik orang lain yang berada dalam penguasaan pelaku bukan karena tindak pidana.'],
+['488','Penggelapan dalam Hubungan Kerja','Mengatur penggelapan barang yang dikuasai karena hubungan kerja, profesi, atau karena mendapat upah.'],
+['492','Penipuan','Mengatur penggunaan tipu muslihat atau rangkaian kebohongan untuk menggerakkan orang menyerahkan barang atau memberi keuntungan.'],
+['603','Korupsi yang Merugikan Keuangan Negara','Mengatur perbuatan memperkaya diri sendiri, orang lain, atau korporasi secara melawan hukum yang merugikan keuangan negara atau perekonomian negara.'],
+['604','Penyalahgunaan Kewenangan','Mengatur penyalahgunaan kewenangan karena jabatan atau kedudukan yang merugikan keuangan negara atau perekonomian negara.']
+];
+function searchArticle(){
+ const q=document.getElementById('query').value.trim().toLowerCase();
+ const out=document.getElementById('results');out.replaceChildren();
+ if(!q){out.textContent='Masukkan nomor pasal atau kata kunci terlebih dahulu.';return;}
+ const found=pasal.filter(x=>x.join(' ').toLowerCase().includes(q));
+ if(!found.length){out.textContent='Pasal tidak ditemukan dalam daftar ringkasan ini.';return;}
+ found.forEach(x=>{
+  const box=document.createElement('article');box.className='result';
+  const h=document.createElement('h3');h.textContent='Pasal '+x[0]+' — '+x[1];
+  const p=document.createElement('p');p.textContent=x[2];
+  box.append(h,p);out.append(box);
+ });
+}
+document.getElementById('query').addEventListener('keydown',e=>{if(e.key==='Enter')searchArticle();});
+document.getElementById('password').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+</script>
+</body>
+</html>
